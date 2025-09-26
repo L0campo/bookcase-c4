@@ -60,11 +60,46 @@ def leerBiblioteca():
     else :
         print("no hay libros en la biblioteca")
 
-def buscar_libros(palabra):
+
+def buscadorMenu():
+    print("====== Buscador de libros 🔎 ======".center(50))
+    print(" escoja una opcion del 1-3 para buscar el libro que deseas")
+
+
+
+
+def buscarlibros(palabra,n):
     sugerencias = []
+    
+    
+    
+    
     for libro in libros:
         titulo, autor, genero, _, _ = libro
-        if palabra.lower() in titulo.lower() or palabra.lower() in autor.lower() or palabra.lower() in genero.lower():
+        
+        if n==1:
+            if palabra.lower() in titulo.lower() :
+               sugerencias.append(libro)
+        
+        elif n==2:
+         
+            if palabra.lower() in autor.lower() :
+               sugerencias.append(libro)
+          
+        elif n==3:
+            
+            if palabra.lower() in genero.lower():
+               sugerencias.append(libro)
+            
+            
+            
+        else :
+            print("error")  
+            
+            
+            
+            
+            
             sugerencias.append(libro)
     return sugerencias
 
@@ -86,6 +121,7 @@ def estadoLibro():
         print("error intente de nuevo")
 
 def estadisticasLibros():
+    
     leidos=0
     porleer=0
     total=len(libros)
@@ -98,29 +134,39 @@ def estadisticasLibros():
 
         else :
             leidos += 1
+            
+                   
+        genero = libro[2]
 
-        for libro in libros: 
-            genero = libro[2]
-
-            if genero in generos:
-                generos[genero] += 1
-            else :
-                generos[genero] = 1
+        if genero in generos:
+            generos[genero] += 1
+        else :
+            generos[genero] = 1
+                
+    if generos:
+        generoMasFrecuente = max(generos, key=generos.get)
+    else:
+        generoMasFrecuente = "No hay géneros disponibles"
 
     print("===== Estadísticas 📊 =====")
     print(f"Total de libros: {total}")
     print(f"Leídos: {leidos}")
-    print(f"Por leer: {porleer}")
-    print(f"Género más frecuente: {genero} ")
+    print(f"Por leer: {porleer}")   
+    print(f"Género más frecuente: {generoMasFrecuente} ")
+    
+        
 
 def eliminarLibro():
-    print("====== Eliminar libros🗑️ =======")
+      
+    leerBiblioteca()
     
-    
+    print("====== Eliminar libros🗑️ =======".center(50))
 
     eliminar=int(input("ingrese el numero del libro que desea eliminar: "))
 
-    libro = libros.pop(eliminar)
+    libro = libros.pop(eliminar-1)
+    
+    print(f"se elimino el libro {libro[0]}")
 
 
 
@@ -154,8 +200,10 @@ while isActive:
 
             case 3:
                 
-                entrada = input("\n🔎 Buscar libros por título, autor o género: ")
-                resultados = buscar_libros(entrada)
+                buscadorMenu()
+                n=int(input("Titulo 1. / Autor2. / Genero3.: "))
+                entrada = input("\n🔎 digite una palabra para empezar la busqueda: ")
+                resultados = buscarlibros(entrada,n)
                 if resultados:
                     print("\n📚 Resultados encontrados:")
                     for i, libro in enumerate(resultados, 1):
@@ -178,7 +226,9 @@ while isActive:
                 clear_screen()
 
             case 6:
-                pass
+                eliminarLibro()
+                pasuar()
+                clear_screen()
 
             case 7:
                 print("Gracias por usar Sistema de Gestión de Biblioteca")
