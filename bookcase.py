@@ -114,10 +114,13 @@ def estadisticasLibros():
     print(f"Género más frecuente: {genero} ")
 
 def eliminarLibro():
+    print("====== Eliminar libros🗑️ =======")
+    
+    
 
-    eliminar=int(input(""))
+    eliminar=int(input("ingrese el numero del libro que desea eliminar: "))
 
-    libro = libros.pop
+    libro = libros.pop(eliminar)
 
 
 
