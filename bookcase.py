@@ -85,6 +85,42 @@ def estadoLibro():
     else :
         print("error intente de nuevo")
 
+def estadisticasLibros():
+    leidos=0
+    porleer=0
+    total=len(libros)
+    generos = {}
+
+    for libro in libros:
+
+        if libro[4] == False:
+            porleer += 1
+
+        else :
+            leidos += 1
+
+        for libro in libros: 
+            genero = libro[2]
+
+            if genero in generos:
+                generos[genero] += 1
+            else :
+                generos[genero] = 1
+
+    print("===== Estadísticas 📊 =====")
+    print(f"Total de libros: {total}")
+    print(f"Leídos: {leidos}")
+    print(f"Por leer: {porleer}")
+    print(f"Género más frecuente: {genero} ")
+
+def eliminarLibro():
+
+    eliminar=int(input(""))
+
+    libro = libros.pop
+
+
+
 
 
 
@@ -133,7 +169,10 @@ while isActive:
                 clear_screen()
 
             case 5:
-                pass
+                
+                estadisticasLibros()
+                pasuar()
+                clear_screen()
 
             case 6:
                 pass
